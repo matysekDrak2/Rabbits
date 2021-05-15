@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace RandomGenerator { };
 namespace Program { };
@@ -8,13 +9,13 @@ namespace Generate
 {
     class Entities
     {
-        static public Rabbit.Stats[] GenOne(Program.Map map, int AmmountOfGeneratedRabbits)
+        static public List<Rabbit.Stats> GenOne(Program.Map map, int AmmountOfGeneratedRabbits)
         {
-            Rabbit.Stats[] genOneList = new Rabbit.Stats[AmmountOfGeneratedRabbits]; //list to genetate new rabbits to
+            List<Rabbit.Stats> genOneList = new List<Rabbit.Stats>(); //list to genetate new rabbits to
             for (int Cycle = 0; Cycle < AmmountOfGeneratedRabbits; Cycle++)
             {
                 Console.WriteLine("In genOne the rabbit num. " + Cycle + "has");
-                genOneList[Cycle] = new Rabbit.Stats(map);
+                genOneList.Add(new Rabbit.Stats(map));
             }
             return genOneList;
         }
@@ -59,9 +60,9 @@ namespace Generate
             return nope;
         }
 
-        static public Program.Position SearchMate(Rabbit.Stats currentRabbit, Rabbit.Stats[] rabbitList)
+        static public Program.Position SearchMate(Rabbit.Stats currentRabbit, List<Rabbit.Stats> rabbitList)
         {
-            for (int Round = 0; Round < rabbitList.Length; Round++)
+            for (int Round = 0; Round < rabbitList.Count; Round++)
             {
                 if (rabbitList[Round].rabbitPos.posX <= currentRabbit.rabbitPos.posX + currentRabbit.See && rabbitList[Round].rabbitPos.posX >= currentRabbit.rabbitPos.posX - currentRabbit.See)
                 {
@@ -77,9 +78,9 @@ namespace Generate
             Console.WriteLine("rabbit didnt found mate and whants to go to " + nope.posX + "x " + nope.posY + "y");
             return nope;
         }
-        static public int SearchMate2(Rabbit.Stats currentRabbit, Rabbit.Stats[] rabbitList)
+        static public int SearchMate2(Rabbit.Stats currentRabbit, List<Rabbit.Stats> rabbitList)
         {
-            for (int Round = 0; Round < rabbitList.Length; Round++)
+            for (int Round = 0; Round < rabbitList.Count; Round++)
             {
                 if (rabbitList[Round].rabbitPos.posX <= currentRabbit.rabbitPos.posX + currentRabbit.See && rabbitList[Round].rabbitPos.posX >= currentRabbit.rabbitPos.posX - currentRabbit.See)
                 {

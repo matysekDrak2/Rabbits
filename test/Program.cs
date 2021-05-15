@@ -15,22 +15,22 @@ namespace Program
             int AmmountOfGeneratedFood = 100; // počet jídla na každou generaci
             int GenerationLimit = 2000; // počet simulovaných generací
             int AmmountOfGenOneRabbits = 20;
-            Rabbit.Stats[] rabbitList = new Rabbit.Stats[20000];
-            int rabbitCount = AmmountOfGenOneRabbits;
+            List<Rabbit.Stats> rabbitList = new List<Rabbit.Stats>();
+            Rabbit.Stats[] rabbitList2 = new Rabbit.Stats[20000];
             rabbitList = Generate.Entities.GenOne(map, AmmountOfGenOneRabbits);
 
             for (int CurrentGeneration = 0; CurrentGeneration < GenerationLimit; CurrentGeneration++) //pro každou generaci
             {
                 Position[] foodList = Generate.Entities.Food(AmmountOfGeneratedFood,map); // generuj jídlo pro tuto generaci
 
-                for (int CurrentRabbit = 0; CurrentRabbit < rabbitList.Length; CurrentRabbit++) // pro každý oběkt druhu Rabbit, názvem rabbit v listu rabbitList
+                for (int CurrentRabbit = 0; CurrentRabbit < rabbitList.Count; CurrentRabbit++) // pro každý oběkt druhu Rabbit, názvem rabbit v listu rabbitList
                 {
                     if (!rabbitList[CurrentRabbit].alive) { Console.WriteLine("Rabbit " + CurrentRabbit + " is dead"); break;} //guard třída
 
                     switch (rabbitList[CurrentRabbit].priority)
                     {
                         //case "Hungry": RunForFood(rabbitList[CurrentRabbit], foodList); break;
-                        case "Horny": Console.WriteLine("Rabbit " + CurrentRabbit + " is " + rabbitList[CurrentRabbit].Age + " yo " + "and horny"); Rabbit.Actions.RunForMate(rabbitList[CurrentRabbit], rabbitList, rabbitCount); break;
+                        case "Horny": Console.WriteLine("Rabbit " + CurrentRabbit + " is " + rabbitList[CurrentRabbit].Age + " yo " + "and horny"); Rabbit.Actions.RunForMate(rabbitList[CurrentRabbit], rabbitList); break;
                         case "Hungry": Console.WriteLine("Rabbit " + CurrentRabbit + " is " + rabbitList[CurrentRabbit].Age + " yo " + "and hungry"); Rabbit.Actions.RunForFood(rabbitList[CurrentRabbit], foodList); break;
                     }
                     rabbitList[CurrentRabbit].Age++;

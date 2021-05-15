@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Program { };
 
@@ -158,16 +159,17 @@ namespace Rabbit
             }
 
         }
-        public static void RunForMate(Rabbit.Stats currentRabbit, Rabbit.Stats[] rabbitList, int rabbitCount)
+        public static void RunForMate(Rabbit.Stats currentRabbit, List<Rabbit.Stats> rabbitList)
         {
             int dadId = Generate.Paths.SearchMate2(currentRabbit, rabbitList);
             Program.Position nearesrMatePos = Generate.Paths.SearchMate(currentRabbit, rabbitList); // will always give a way to go, maybe out of the world but it will
             currentRabbit.rabbitPos = Rabbit.Actions.GoTo(currentRabbit, nearesrMatePos);
             if (nearesrMatePos == currentRabbit.rabbitPos)
             {
-                rabbitCount++;
-                rabbitList[rabbitCount] = new Stats(currentRabbit, rabbitList[dadId]);
+                rabbitList.Add(new Stats(currentRabbit, rabbitList[dadId]));
+                return;
             }
+            return;
         }
     }
 }
