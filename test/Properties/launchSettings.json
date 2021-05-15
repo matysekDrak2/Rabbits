@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "test": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "Klíč": "Hodnota"
+      }
+    }
+  }
+}
