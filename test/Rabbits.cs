@@ -144,9 +144,9 @@ namespace Rabbit
             }
             return whantToGetTo;
         }
-        public static void RunForFood(Rabbit.Stats currentRabbit, List<Program.Position> foodList)
+        public static void RunForFood(Rabbit.Stats currentRabbit, List<Program.Position> foodList, Program.Map map)
         {
-            Program.Position nearesrFoodPos = Generate.Paths.SearchFood(currentRabbit, foodList); // will always give a way to go, maybe out of the world but it will
+            Program.Position nearesrFoodPos = Generate.Paths.SearchFood(currentRabbit, foodList, map); // will always give a way to go, maybe out of the world but it will
             currentRabbit.rabbitPos = Rabbit.Actions.GoTo(currentRabbit, nearesrFoodPos);
             if (nearesrFoodPos == currentRabbit.rabbitPos)
             {

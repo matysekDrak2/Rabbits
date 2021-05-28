@@ -30,7 +30,7 @@ namespace Program
                     {
                         //case "Hungry": RunForFood(rabbitList[CurrentRabbit], foodList); break;
                         case "Horny": Rabbit.Actions.RunForMate(rabbitList[CurrentRabbit], rabbitList, map); break;
-                        case "Hungry": Rabbit.Actions.RunForFood(rabbitList[CurrentRabbit], foodList); break;
+                        case "Hungry": Rabbit.Actions.RunForFood(rabbitList[CurrentRabbit], foodList, map); break;
                     }
                     rabbitList[CurrentRabbit].Age++;
                 }

@@ -38,7 +38,7 @@ namespace Generate
             pos.posY = RandomGenerator.NahodneCislo.Cele(map.min, map.max);
             return pos;
         }
-        static public Program.Position SearchFood(Rabbit.Stats currentRabbit, List<Program.Position> foodList)
+        static public Program.Position SearchFood(Rabbit.Stats currentRabbit, List<Program.Position> foodList, Program.Map map)
         {
             for (int currentFood = 0; currentFood < foodList.Count; currentFood++)
             {
@@ -53,6 +53,10 @@ namespace Generate
             }
             int speed = Convert.ToInt32(currentRabbit.Speed);
             Program.Position nope = new Program.Position(RandomGenerator.NahodneCislo.Cele(currentRabbit.rabbitPos.posX - speed, currentRabbit.rabbitPos.posX + speed), RandomGenerator.NahodneCislo.Cele(currentRabbit.rabbitPos.posY - speed, currentRabbit.rabbitPos.posY + speed));
+            if (nope.posX > map.max) { nope.posX = map.max; }
+            if (nope.posY > map.max) { nope.posY = map.max; }
+            if (nope.posX < map.min) { nope.posX = map.min; }
+            if (nope.posY < map.min) { nope.posY = map.min; }
             return nope;
         }
 
