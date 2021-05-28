@@ -14,18 +14,17 @@ namespace Generate
             List<Rabbit.Stats> genOneList = new List<Rabbit.Stats>(); //list to genetate new rabbits to
             for (int Cycle = 0; Cycle < AmmountOfGeneratedRabbits; Cycle++)
             {
-                Console.WriteLine("In genOne the rabbit num. " + Cycle + "has");
                 genOneList.Add(new Rabbit.Stats(map));
             }
             return genOneList;
         }
 
-        static public Program.Position[] Food(int AmmountOfGeneratedFood, Program.Map map) //genetares food
+        static public List<Program.Position> Food(int AmmountOfGeneratedFood, Program.Map map) //genetares food
         {
-            Program.Position[] Food = new Program.Position[AmmountOfGeneratedFood]; // internal food list
+            List<Program.Position> Food = new List<Program.Position>(); // internal food list
             for (int Cycle = 0; Cycle < AmmountOfGeneratedFood; Cycle++)
             {
-                Food[Cycle] = Paths.Position(map); //pos of food save to internal
+                Food.Add(Paths.Position(map)); //pos of food save to internal
             }
             return Food; // export
         }
@@ -39,24 +38,21 @@ namespace Generate
             pos.posY = RandomGenerator.NahodneCislo.Cele(map.min, map.max);
             return pos;
         }
-        static public Program.Position SearchFood(Rabbit.Stats currentRabbit, Program.Position[] foodList)
+        static public Program.Position SearchFood(Rabbit.Stats currentRabbit, List<Program.Position> foodList)
         {
-            for (int currentFood = 0; currentFood < foodList.Length; currentFood++)
+            for (int currentFood = 0; currentFood < foodList.Count; currentFood++)
             {
                 if (foodList[currentFood].posX <= currentRabbit.rabbitPos.posX + currentRabbit.See && foodList[currentFood].posX >= currentRabbit.rabbitPos.posX - currentRabbit.See)
                 {
                     if (foodList[currentFood].posY <= currentRabbit.rabbitPos.posY + currentRabbit.See && foodList[currentFood].posY >= currentRabbit.rabbitPos.posY - currentRabbit.See)
                     {
-                        Console.WriteLine("rabbit found food on " + foodList[currentFood].posX + "x " + foodList[currentFood].posY + "y");
                         return foodList[currentFood];
-                        foodList[currentFood].posX = -1000;
-                        foodList[currentFood].posY = -1000;
+                        foodList.Remove(foodList[currentFood]);
                     }
                 }
             }
             int speed = Convert.ToInt32(currentRabbit.Speed);
             Program.Position nope = new Program.Position(RandomGenerator.NahodneCislo.Cele(currentRabbit.rabbitPos.posX - speed, currentRabbit.rabbitPos.posX + speed), RandomGenerator.NahodneCislo.Cele(currentRabbit.rabbitPos.posY - speed, currentRabbit.rabbitPos.posY + speed));
-            Console.WriteLine("rabbit didnt found food and whants to go to " + nope.posX + "x " + nope.posY + "y");
             return nope;
         }
 
@@ -68,14 +64,12 @@ namespace Generate
                 {
                     if (rabbitList[Round].rabbitPos.posY <= currentRabbit.rabbitPos.posY + currentRabbit.See && rabbitList[Round].rabbitPos.posY >= currentRabbit.rabbitPos.posY - currentRabbit.See)
                     {
-                        Console.WriteLine("rabbit found mate on " + rabbitList[Round].rabbitPos.posX + "x " + rabbitList[Round].rabbitPos.posY + "y");
                         return rabbitList[Round].rabbitPos;
                     }
                 }
             }
             int speed = Convert.ToInt32(currentRabbit.Speed);
             Program.Position nope = new Program.Position(RandomGenerator.NahodneCislo.Cele(currentRabbit.rabbitPos.posX - speed, currentRabbit.rabbitPos.posX + speed), RandomGenerator.NahodneCislo.Cele(currentRabbit.rabbitPos.posY - speed, currentRabbit.rabbitPos.posY + speed));
-            Console.WriteLine("rabbit didnt found mate and whants to go to " + nope.posX + "x " + nope.posY + "y");
             return nope;
         }
         static public int SearchMate2(Rabbit.Stats currentRabbit, List<Rabbit.Stats> rabbitList)
@@ -86,7 +80,6 @@ namespace Generate
                 {
                     if (rabbitList[Round].rabbitPos.posY <= currentRabbit.rabbitPos.posY + currentRabbit.See && rabbitList[Round].rabbitPos.posY >= currentRabbit.rabbitPos.posY - currentRabbit.See)
                     {
-                        Console.WriteLine("rabbit found mate on " + rabbitList[Round].rabbitPos.posX + "x " + rabbitList[Round].rabbitPos.posY + "y");
                         return Round;
                     }
                 }

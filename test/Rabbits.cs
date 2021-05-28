@@ -31,6 +31,7 @@ namespace Rabbit
             get => see / 10;
             set
             {
+                if(value > limits.see) { value = limits.see; }
                 see = value;
             }
         }
@@ -39,6 +40,7 @@ namespace Rabbit
             get => speed / 10;
             set
             {
+                if(value > limits.speed) { value = limits.speed; }
                 speed = value;
             }
         }
@@ -48,14 +50,11 @@ namespace Rabbit
             set
             {
                 age = value;
-                Console.WriteLine("the rabbit has " + food + "food, and eats" + FoodConsumption);
                 food = food - FoodConsumption;
-                Console.WriteLine("now he has " + food + " out of " + foodCapacity);
                 if (food < foodConsumption || age == limits.age)
                 {
                     alive = false;
-                    rabbitPos.posX = -1000;
-                    rabbitPos.posY = -1000;
+
                 }
                 switch (food >= foodConsumption * 4)
                 {
@@ -69,11 +68,8 @@ namespace Rabbit
             get => foodConsumption; // gettery jsou špatně
             set // min consumption is 2
             {
+                if(value < limits.foodConsumprionMinimum) { value = limits.foodConsumprionMinimum; }
                 foodConsumption = value;
-                if (foodConsumption < 2)
-                {
-                    foodConsumption = 2;
-                }
             }
         }
 
@@ -85,10 +81,11 @@ namespace Rabbit
             Speed = RandomGenerator.NahodneCislo.Cele(20, 40);
             See = RandomGenerator.NahodneCislo.Cele(20, 40);
             FoodConsumption = Convert.ToInt32(Math.Sqrt(see + speed)-6)*2;
-            foodCapacity = RandomGenerator.NahodneCislo.Cele(30, 60) + FoodConsumption * 2;
+            int foodCapSugestion = RandomGenerator.NahodneCislo.Cele(30, 60) + FoodConsumption * 2;
+            if (foodCapSugestion > limits.foodCapacity) { foodCapSugestion = limits.foodCapacity; }
+            foodCapacity = foodCapSugestion;
             food = foodCapacity;
-            Console.WriteLine("Position of " + rabbitPos.posX + " posX  and " + rabbitPos.posY + " posY\nspeed of " + Speed + "\nsees on " + See + "\nconsumes" + foodConsumption + "\ncaries" + foodCapacity);
-        }
+            }
         public Stats(Stats mom, Stats dad) //newborn
         {
             age = 0;
@@ -98,7 +95,6 @@ namespace Rabbit
             FoodConsumption = Convert.ToInt32(Math.Sqrt(see + speed) - 6) * 2;
             foodCapacity = RandomGenerator.NahodneCislo.Cele(30, 60) + FoodConsumption * 2;
             food = foodCapacity;
-            Console.WriteLine("Position of " + rabbitPos.posX + " posX  and " + rabbitPos.posY + " posY\nspeed of " + Speed + "\nsees on " + See + "\nconsumes" + foodConsumption + "\ncaries" + foodCapacity);
         }
     }
     class Actions
@@ -148,14 +144,13 @@ namespace Rabbit
             }
             return whantToGetTo;
         }
-        public static void RunForFood(Rabbit.Stats currentRabbit, Program.Position[] foodList)
+        public static void RunForFood(Rabbit.Stats currentRabbit, List<Program.Position> foodList)
         {
             Program.Position nearesrFoodPos = Generate.Paths.SearchFood(currentRabbit, foodList); // will always give a way to go, maybe out of the world but it will
             currentRabbit.rabbitPos = Rabbit.Actions.GoTo(currentRabbit, nearesrFoodPos);
             if (nearesrFoodPos == currentRabbit.rabbitPos)
             {
                 currentRabbit.food += 10;
-                Console.WriteLine("rabbit ate and got 10 food");
             }
 
         }
