@@ -11,7 +11,7 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            Map map = new Map(0, 100); //mapa a její velikost
+             Map map = new Map(0, 100); //mapa a její velikost
             int AmmountOfGeneratedFood = 100; // počet jídla na každou generaci
             int GenerationLimit = 200; // počet simulovaných generací
             int AmmountOfGenOneRabbits = 20;
@@ -29,7 +29,7 @@ namespace Program
                     switch (rabbitList[CurrentRabbit].priority)
                     {
                         //case "Hungry": RunForFood(rabbitList[CurrentRabbit], foodList); break;
-                        case "Horny": Rabbit.Actions.RunForMate(rabbitList[CurrentRabbit], rabbitList); break;
+                        case "Horny": Rabbit.Actions.RunForMate(rabbitList[CurrentRabbit], rabbitList, map); break;
                         case "Hungry": Rabbit.Actions.RunForFood(rabbitList[CurrentRabbit], foodList); break;
                     }
                     rabbitList[CurrentRabbit].Age++;

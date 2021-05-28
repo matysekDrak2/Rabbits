@@ -56,7 +56,7 @@ namespace Generate
             return nope;
         }
 
-        static public Program.Position SearchMate(Rabbit.Stats currentRabbit, List<Rabbit.Stats> rabbitList)
+        static public Program.Position SearchMate(Rabbit.Stats currentRabbit, List<Rabbit.Stats> rabbitList, Program.Map map)
         {
             for (int Round = 0; Round < rabbitList.Count; Round++)
             {
@@ -70,6 +70,10 @@ namespace Generate
             }
             int speed = Convert.ToInt32(currentRabbit.Speed);
             Program.Position nope = new Program.Position(RandomGenerator.NahodneCislo.Cele(currentRabbit.rabbitPos.posX - speed, currentRabbit.rabbitPos.posX + speed), RandomGenerator.NahodneCislo.Cele(currentRabbit.rabbitPos.posY - speed, currentRabbit.rabbitPos.posY + speed));
+            if(nope.posX > map.max) { nope.posX = map.max; }
+            if(nope.posY > map.max) { nope.posY = map.max; }
+            if(nope.posX < map.min) { nope.posX = map.min; }
+            if(nope.posY < map.min) { nope.posY = map.min; }
             return nope;
         }
         static public int SearchMate2(Rabbit.Stats currentRabbit, List<Rabbit.Stats> rabbitList)

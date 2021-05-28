@@ -154,10 +154,10 @@ namespace Rabbit
             }
 
         }
-        public static void RunForMate(Rabbit.Stats currentRabbit, List<Rabbit.Stats> rabbitList)
+        public static void RunForMate(Rabbit.Stats currentRabbit, List<Rabbit.Stats> rabbitList, Program.Map map)
         {
             int dadId = Generate.Paths.SearchMate2(currentRabbit, rabbitList);
-            Program.Position nearesrMatePos = Generate.Paths.SearchMate(currentRabbit, rabbitList); // will always give a way to go, maybe out of the world but it will
+            Program.Position nearesrMatePos = Generate.Paths.SearchMate(currentRabbit, rabbitList, map); // will always give a way to go, maybe out of the world but it will
             currentRabbit.rabbitPos = Rabbit.Actions.GoTo(currentRabbit, nearesrMatePos);
             if (nearesrMatePos == currentRabbit.rabbitPos)
             {
