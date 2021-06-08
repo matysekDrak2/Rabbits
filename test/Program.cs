@@ -11,7 +11,7 @@ namespace Program
     {
         static void Main(string[] args)
         {
-             Map map = new Map(0, 100); //mapa a její velikost
+            Map map = new Map(0, 100); //mapa a její velikost
             int AmmountOfGeneratedFood = 100; // počet jídla na každou generaci
             int GenerationLimit = 200; // počet simulovaných generací
             int AmmountOfGenOneRabbits = 20;
